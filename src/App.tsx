@@ -1,3 +1,9 @@
+import { Clicker } from '@/components/Clicker/clicker'
+
 export function App() {
-  return <div>Hello</div>
+  return (
+    <div>
+      <Clicker />
+    </div>
+  )
 }
