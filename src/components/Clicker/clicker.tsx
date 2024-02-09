@@ -1,8 +1,13 @@
+import React from 'react'
+
 import { ClickButton } from '@/components/Clicker/ClickButton'
 import { ClickCountDisplay } from '@/components/Clicker/ClickCountDisplay'
+import { useClickSender } from '@/customHooks/useClickSender'
 import Box from '@mui/material/Box'
 
-export const Clicker = () => {
+export const Clicker: React.FC = () => {
+  const { count, incrementCount, serverCount } = useClickSender()
+
   return (
     <Box
       sx={{
@@ -12,8 +17,8 @@ export const Clicker = () => {
         marginTop: '100px',
       }}
     >
-      <ClickButton />
-      <ClickCountDisplay />
+      <ClickButton incrementCount={incrementCount} />
+      <ClickCountDisplay count={count} serverCount={serverCount} />
     </Box>
   )
 }

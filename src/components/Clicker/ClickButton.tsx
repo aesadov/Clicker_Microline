@@ -1,8 +1,15 @@
+import React from 'react'
+
 import Button from '@mui/material/Button'
 
-export const ClickButton = () => {
+interface ClickButtonProps {
+  incrementCount: () => void
+}
+
+export const ClickButton: React.FC<ClickButtonProps> = ({ incrementCount }) => {
   return (
     <Button
+      onClick={() => incrementCount()}
       sx={{
         '&:hover': {
           backgroundColor: 'goldenrod',
