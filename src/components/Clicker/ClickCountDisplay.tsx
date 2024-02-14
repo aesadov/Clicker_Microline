@@ -5,10 +5,15 @@ import Box from '@mui/material/Box'
 
 interface ClickCountDisplayProps {
   count: number
-  serverCount: number
+  error: null | string
+  serverCount: number | undefined
 }
 
-export const ClickCountDisplay: React.FC<ClickCountDisplayProps> = ({ count, serverCount }) => {
+export const ClickCountDisplay: React.FC<ClickCountDisplayProps> = ({
+  count,
+  error,
+  serverCount,
+}) => {
   return (
     <Box sx={{ width: 300 }}>
       <Alert severity={'info'} sx={{ mt: '20px' }}>
@@ -17,6 +22,11 @@ export const ClickCountDisplay: React.FC<ClickCountDisplayProps> = ({ count, ser
       <Alert severity={'warning'} sx={{ mt: '20px' }}>
         По версии сервера {serverCount} раз
       </Alert>
+      {error && (
+        <Alert severity={'error'} sx={{ mt: '20px' }}>
+          {error}
+        </Alert>
+      )}
     </Box>
   )
 }

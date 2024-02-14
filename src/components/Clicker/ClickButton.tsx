@@ -4,11 +4,13 @@ import Button from '@mui/material/Button'
 
 interface ClickButtonProps {
   incrementCount: () => void
+  isSending: boolean
 }
 
-export const ClickButton: React.FC<ClickButtonProps> = ({ incrementCount }) => {
+export const ClickButton: React.FC<ClickButtonProps> = ({ incrementCount, isSending }) => {
   return (
     <Button
+      disabled={isSending}
       onClick={() => incrementCount()}
       sx={{
         '&:hover': {
@@ -22,7 +24,7 @@ export const ClickButton: React.FC<ClickButtonProps> = ({ incrementCount }) => {
       }}
       variant={'contained'}
     >
-      Кликнуть
+      {isSending ? 'Отправка' : 'Кликнуть'}
     </Button>
   )
 }

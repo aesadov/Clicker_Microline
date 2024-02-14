@@ -6,7 +6,7 @@ import { useClickSender } from '@/customHooks/useClickSender'
 import Box from '@mui/material/Box'
 
 export const Clicker: React.FC = () => {
-  const { count, incrementCount, serverCount } = useClickSender()
+  const { count, error, incrementCount, isSending, serverCount } = useClickSender()
 
   return (
     <Box
@@ -17,8 +17,8 @@ export const Clicker: React.FC = () => {
         marginTop: '100px',
       }}
     >
-      <ClickButton incrementCount={incrementCount} />
-      <ClickCountDisplay count={count} serverCount={serverCount} />
+      <ClickButton incrementCount={incrementCount} isSending={isSending} />
+      <ClickCountDisplay count={count} error={error} serverCount={serverCount} />
     </Box>
   )
 }

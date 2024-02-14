@@ -1,13 +1,19 @@
 import { useRef, useState } from 'react'
 
+import { clickerApi } from '@/api/zontApi'
+
 interface ClickSenderRes {
   count: number
+  error: null | string
   incrementCount: () => void
-  serverCount: number
+  isSending: boolean
+  serverCount: number | undefined
 }
 export const useClickSender = (): ClickSenderRes => {
   const [count, setCount] = useState(0)
-  const [serverCount, setServerCount] = useState(0)
+  const [serverCount, setServerCount] = useState<number | undefined>(0)
+  const [isSending, setIsSending] = useState(false)
+  const [error, setError] = useState<null | string>(null)
   const timer = useRef<NodeJS.Timeout | null>(null)
 
   const incrementCount = () => {
@@ -16,9 +22,26 @@ export const useClickSender = (): ClickSenderRes => {
     }
     setCount(prevCount => prevCount + 1)
     timer.current = setTimeout(() => {
-      setServerCount(count + 1)
+      sendClicks(count + 1)
     }, 1000)
   }
 
-  return { count, incrementCount, serverCount }
+  const sendClicks = async (count: number) => {
+    setIsSending(true)
+    setError(null)
+    try {
+      const res = await clickerApi.sendClicks(count)
+
+      if (res.data.ok) {
+        setServerCount(res.data.count)
+      }
+    } catch (err) {
+      setError(err.response.data.error_ui)
+    } finally {
+      setIsSending(false)
+      setCount(0)
+    }
+  }
+
+  return { count, error, incrementCount, isSending, serverCount }
 }
