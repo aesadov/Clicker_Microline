@@ -25,6 +25,9 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "node_modules/.pnpm/@types+jest@29.5.12/node_modules/@types/jest/index.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
